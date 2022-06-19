@@ -6,6 +6,7 @@
   "main": "main.js",
   "license": "MIT",
   "scripts": {
+    "dev": "electron --enable-transparent-visuals --disable-gpu .",
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make"
@@ -25,6 +26,8 @@
     "electron": "^19.0.4"
   },
   "dependencies": {
+    "@electron/remote": "^2.0.8",
+    "electron-acrylic-window": "^0.5.11",
     "electron-squirrel-startup": "^1.0.0"
   },
   "config": {

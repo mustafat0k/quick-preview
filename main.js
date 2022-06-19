@@ -1,37 +1,48 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, screen } = require('electron')
 const path = require('path')
 const { dialog } = require('electron')
- const url = require('url').format({
-  protocol: 'file',
-  slashes: true,
-  pathname: require('path').join(__dirname, 'index.html')
-})
+
 
 const createWindow = () => {
-  const mainWindow = new BrowserWindow({
-    // frame:false,
-    // transparent: true, 
-    /** 
-       titleBarStyle: 'hidden',
-  titleBarOverlay: {
-    color: '#2f3241',
-    symbolColor: '#74b1be'
-  },   
-     **/
+
+const size = screen.getPrimaryDisplay().workAreaSize;
+  
+  const win = new BrowserWindow({
+    width: size.width - 1,
+    height: size.height - 1,
+    minWidth: 260,
+    minHeight: 360,
+      transparent: true, 
+      resizable: true,
+      frame: false,
      webPreferences: {
+      nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
-    }
+    },
+    vibrancy: "under-window",
+    titleBarStyle: "hidden",
+
   })
+  win.webContents.openDevTools({mode:'undocked'})
 
-  // dialog.showOpenDialog(mainWindow, {properties: ['openFile', 'multiSelections'] }).then(result => { console.log(result.canceled); console.log(result.filePaths) }).catch(err => { console.log(err) })
+  
 
-  mainWindow.loadFile('index.html')
-  // mainWindow.maximize()
+  win.webContents.setFrameRate(60);
+
+  // Set maximized size
+  win.maximize(); // change window size -> redrawing
+  win.setFullScreen(true); // change window property -> redrawing
+
+ 
+  win.loadFile('index.html')
 }
 
-app.whenReady().then(() => {
-  createWindow()
-})
+app.on('ready', function () {
+  setTimeout(function() {
+      createWindow();
+  }, 500);
+});
+// app.whenReady().then(() => createWindow)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()

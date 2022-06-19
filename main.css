@@ -6,16 +6,17 @@ body {
     align-items: center;
     text-align: center;
     justify-content: center;
-    position: absolute;
-    width: -webkit-fill-available;
-    height: 100%;
-    top: 0;
-    border: 0;
-    left: 0;
-    right: 0;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: rgb(255, 255, 255);
+    backdrop-filter: blur(4px);   
 }
-button {
-  -webkit-app-region: no-drag;
+
+.wrap{
+  -webkit-app-region: drag!important;
 }
 .titlebar {
   -webkit-user-select: none;
@@ -29,7 +30,7 @@ img{
   min-width: 300px;
   min-height: 300px;
   object-fit: cover;
- -webkit-app-region: drag!important;
+  /**-webkit-app-region: drag!important;  **/
 }
 
 .droptarget {
